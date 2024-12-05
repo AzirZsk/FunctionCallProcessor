@@ -1,0 +1,48 @@
+{
+  "ParameterParserTest": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "description": "姓名",
+        "type": "string"
+      },
+      "age": {
+        "description": "年龄",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "name",
+      "age"
+    ],
+    "additionalProperties": false
+  },
+  "ToolTestClass": [
+    {
+      "type": "function",
+      "function": {
+        "name": "gcd",
+        "description": "计算最大公约数",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "a": {
+              "type": "integer",
+              "description": "非负整数A"
+            },
+            "b": {
+              "type": "integer",
+              "description": "非负整数B"
+            }
+          },
+          "required": [
+            "a",
+            "b"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      }
+    }
+  ]
+}
