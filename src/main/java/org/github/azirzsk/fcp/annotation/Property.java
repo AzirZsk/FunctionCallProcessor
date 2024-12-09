@@ -1,11 +1,8 @@
-package org.github.azirzsk.functioncallprocessor.annotation;
+package org.github.azirzsk.fcp.annotation;
 
-import org.github.azirzsk.functioncallprocessor.converter.Converter;
+import org.github.azirzsk.fcp.converter.Converter;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * @author zhangshukun

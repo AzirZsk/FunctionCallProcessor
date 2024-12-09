@@ -1,10 +1,9 @@
-package org.github.azirzsk.functioncallprocessor.parser;
+package org.github.azirzsk.fcp.parser;
 
-import com.alibaba.fastjson2.JSONObject;
-import org.github.azirzsk.functioncallprocessor.annotation.Function;
-import org.github.azirzsk.functioncallprocessor.annotation.Property;
-import org.github.azirzsk.functioncallprocessor.parser.utils.FileUtils;
-import org.github.azirzsk.functioncallprocessor.parser.utils.JsonUtils;
+import org.github.azirzsk.fcp.annotation.Function;
+import org.github.azirzsk.fcp.annotation.Property;
+import org.github.azirzsk.fcp.parser.utils.FileUtils;
+import org.github.azirzsk.fcp.parser.utils.JsonUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

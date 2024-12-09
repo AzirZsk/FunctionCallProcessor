@@ -1,11 +1,8 @@
-package org.github.azirzsk.functioncallprocessor.entity;
+package org.github.azirzsk.fcp.entity;
 
 import com.alibaba.fastjson2.annotation.JSONField;
 import lombok.Data;
 import lombok.experimental.Accessors;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author zhangshukun
@@ -13,17 +10,17 @@ import java.util.Map;
  */
 @Data
 @Accessors(chain = true)
-public class ParametersEntity {
+public class FunctionEntity {
 
     @JSONField(ordinal = 1)
-    private String type = "object";
+    private String name;
 
     @JSONField(ordinal = 2)
-    private Map<String, PropertyEntity> properties;
+    private String description;
 
     @JSONField(ordinal = 3)
-    private List<String> required;
+    private ParametersEntity parameters;
 
     @JSONField(ordinal = 4)
-    private boolean additionalProperties = false;
+    private boolean strict = true;
 }

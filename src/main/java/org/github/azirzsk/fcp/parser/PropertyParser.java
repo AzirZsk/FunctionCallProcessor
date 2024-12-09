@@ -1,9 +1,9 @@
-package org.github.azirzsk.functioncallprocessor.parser;
+package org.github.azirzsk.fcp.parser;
 
 import lombok.extern.slf4j.Slf4j;
-import org.github.azirzsk.functioncallprocessor.annotation.Property;
-import org.github.azirzsk.functioncallprocessor.converter.Converter;
-import org.github.azirzsk.functioncallprocessor.entity.PropertyEntity;
+import org.github.azirzsk.fcp.annotation.Property;
+import org.github.azirzsk.fcp.converter.Converter;
+import org.github.azirzsk.fcp.entity.PropertyEntity;
 
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;

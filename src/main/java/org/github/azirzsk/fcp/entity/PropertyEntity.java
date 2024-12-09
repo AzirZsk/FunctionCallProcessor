@@ -1,4 +1,4 @@
-package org.github.azirzsk.functioncallprocessor.entity;
+package org.github.azirzsk.fcp.entity;
 
 import com.alibaba.fastjson2.annotation.JSONField;
 import lombok.Data;
