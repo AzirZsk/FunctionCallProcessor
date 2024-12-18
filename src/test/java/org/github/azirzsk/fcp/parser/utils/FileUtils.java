@@ -4,6 +4,7 @@ import com.alibaba.fastjson2.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author zhangshukun
@@ -20,7 +21,7 @@ public class FileUtils {
         try (InputStream resourceAsStream = FileUtils.class.getClassLoader().getResourceAsStream(path)) {
             byte[] bytes = new byte[resourceAsStream.available()];
             resourceAsStream.read(bytes);
-            return JSONObject.parseObject(new String(bytes));
+            return JSONObject.parseObject(new String(bytes, StandardCharsets.UTF_8));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
