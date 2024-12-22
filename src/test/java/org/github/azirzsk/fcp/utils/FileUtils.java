@@ -1,4 +1,4 @@
-package org.github.azirzsk.fcp.parser.utils;
+package org.github.azirzsk.fcp.utils;
 
 import com.alibaba.fastjson2.JSONObject;
 

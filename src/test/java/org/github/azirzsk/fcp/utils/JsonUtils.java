@@ -1,4 +1,4 @@
-package org.github.azirzsk.fcp.parser.utils;
+package org.github.azirzsk.fcp.utils;
 
 import com.alibaba.fastjson2.JSON;
 
@@ -12,6 +12,6 @@ public class JsonUtils {
         if (object instanceof String) {
             return JSON.parse((String) object);
         }
-        return JSON.parseObject(JSON.toJSONString(object));
+        return JSON.parse(JSON.toJSONString(object));
     }
 }

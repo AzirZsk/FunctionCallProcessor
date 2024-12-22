@@ -1,9 +1,9 @@
 package org.github.azirzsk.fcp.parser;
 
-import org.github.azirzsk.fcp.annotation.Property;
 import org.github.azirzsk.fcp.entity.ParametersEntity;
-import org.github.azirzsk.fcp.parser.utils.FileUtils;
-import org.github.azirzsk.fcp.parser.utils.JsonUtils;
+import org.github.azirzsk.fcp.testclass.ParameterTestClass;
+import org.github.azirzsk.fcp.utils.FileUtils;
+import org.github.azirzsk.fcp.utils.JsonUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -24,12 +24,5 @@ public class ParameterParserTest {
         ParametersEntity parametersEntity = parameterParser.parse(testParameterMethod.getParameters());
         Object jsonObject = FileUtils.getJsonObject(ParameterParserTest.class.getSimpleName());
         Assertions.assertEquals(JsonUtils.toJsonObject(parametersEntity), jsonObject);
-    }
-
-    public static class ParameterTestClass {
-
-        public void testParameterMethod(@Property(desc = "姓名") String name, @Property(desc = "年龄") int age) {
-
-        }
     }
 }

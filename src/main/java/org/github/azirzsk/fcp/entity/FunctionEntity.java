@@ -4,6 +4,8 @@ import com.alibaba.fastjson2.annotation.JSONField;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.lang.reflect.Method;
+
 /**
  * @author zhangshukun
  * @since 2024/11/16
@@ -23,4 +25,10 @@ public class FunctionEntity {
 
     @JSONField(ordinal = 4)
     private boolean strict = true;
+
+    @JSONField(serialize = false, deserialize = false)
+    private Method method;
+
+
+
 }

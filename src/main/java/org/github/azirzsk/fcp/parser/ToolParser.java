@@ -1,6 +1,5 @@
 package org.github.azirzsk.fcp.parser;
 
-import com.alibaba.fastjson2.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.github.azirzsk.fcp.annotation.Function;
 import org.github.azirzsk.fcp.entity.FunctionEntity;
@@ -12,14 +11,14 @@ import java.util.List;
 
 /**
  * @author zhangshukun
- * @since 2024/11/25
+ * @since 2024/12/19
  */
 @Slf4j
 public class ToolParser {
 
     private static final FunctionParser FUNCTION_PARSER = new FunctionParser();
 
-    public String parse(Class<?> clazz) {
+    public List<ToolEntity> parse(Class<?> clazz) {
         log.info("开始解析'{}'中的Function", clazz);
         Method[] methods = clazz.getDeclaredMethods();
         if (methods.length == 0) {
@@ -33,12 +32,12 @@ public class ToolParser {
                 continue;
             }
             FunctionEntity functionEntity = FUNCTION_PARSER.parse(method);
+
             ToolEntity toolEntity = new ToolEntity();
             toolEntity.setFunction(functionEntity);
             toolEntityList.add(toolEntity);
         }
-        String res = JSON.toJSONString(toolEntityList);
-        log.info("解析'{}'中的Function成功：{}", clazz.getSimpleName(), res);
-        return res;
+        log.info("解析'{}'中的Function成功：{}", clazz.getSimpleName(), toolEntityList);
+        return toolEntityList;
     }
 }

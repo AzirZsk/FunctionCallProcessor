@@ -12,7 +12,7 @@ import java.lang.reflect.Method;
  * @since 2024/11/16
  */
 @Slf4j
-public class FunctionParser {
+public class FunctionParser implements Parser<Method, FunctionEntity> {
 
     private static final ParameterParser PARAMETER_PARSER = new ParameterParser();
 
@@ -25,7 +25,8 @@ public class FunctionParser {
         FunctionEntity res = new FunctionEntity()
                 .setName(Function.USE_METHOD_NAME.equals(function.name()) ? method.getName() : function.name())
                 .setDescription(function.desc())
-                .setParameters(parametersEntity);
+                .setParameters(parametersEntity)
+                .setMethod(method);
         if (log.isDebugEnabled()) {
             log.debug("解析Method成功：{}", res);
         }

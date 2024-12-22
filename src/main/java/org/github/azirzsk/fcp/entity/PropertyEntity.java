@@ -4,6 +4,7 @@ import com.alibaba.fastjson2.annotation.JSONField;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.lang.reflect.Parameter;
 import java.util.List;
 
 /**
@@ -30,4 +31,10 @@ public class PropertyEntity {
 
     @JSONField(serialize = false)
     private String name;
+
+    @JSONField(serialize = false)
+    private Integer index;
+
+    @JSONField(serialize = false)
+    private Parameter parameter;
 }

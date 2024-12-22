@@ -12,7 +12,7 @@ import java.util.*;
  * @since 2024/11/17
  */
 @Slf4j
-public class ParameterParser {
+public class ParameterParser implements Parser<Parameter[], ParametersEntity> {
 
     private static final PropertyParser PROPERTY_PARSER = new PropertyParser();
 
@@ -22,11 +22,13 @@ public class ParameterParser {
         }
         Map<String, PropertyEntity> properties = new HashMap<>();
         List<String> requiredList = new ArrayList<>();
-        for (Parameter parameter : parameters) {
+        for (int i = 0; i < parameters.length; i++) {
+            Parameter parameter = parameters[i];
             PropertyEntity property = PROPERTY_PARSER.parse(parameter);
             if (property == null) {
                 continue;
             }
+            property.setIndex(i);
             properties.put(property.getName(), property);
             if (property.isRequired()) {
                 requiredList.add(property.getName());

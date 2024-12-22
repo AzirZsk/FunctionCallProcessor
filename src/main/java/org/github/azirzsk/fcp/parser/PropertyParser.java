@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.github.azirzsk.fcp.annotation.Property;
 import org.github.azirzsk.fcp.converter.Converter;
 import org.github.azirzsk.fcp.entity.PropertyEntity;
+import org.github.azirzsk.fcp.enums.PropertyType;
 
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.List;
  * @since 2024/11/17
  */
 @Slf4j
-public class PropertyParser {
+public class PropertyParser implements Parser<Parameter, PropertyEntity> {
 
     /**
      * 解析参数属性
@@ -36,6 +37,7 @@ public class PropertyParser {
         PropertyEntity propertyEntity = new PropertyEntity()
                 .setName(Property.USE_PARAM_NAME.equals(property.name()) ? parameter.getName() : property.name())
                 .setDescription(property.desc())
+                .setParameter(parameter)
                 .setRequired(property.required());
 
         // 解析参数对应类型
@@ -85,36 +87,7 @@ public class PropertyParser {
         if (type.isArray() || type.isEnum()) {
             throw new IllegalArgumentException("不支持的类型：" + type);
         }
-        if (type.isPrimitive()) {
-            if (type == int.class || type == long.class) {
-                return "integer";
-            }
-            if (type == char.class || type == byte.class) {
-                return "string";
-            }
-            if (type == double.class || type == float.class || type == short.class) {
-                return "double";
-            }
-            if (type == boolean.class) {
-                return "boolean";
-            }
-            throw new IllegalArgumentException("不支持的基本类型：" + type);
-        }
-        switch (type.getSimpleName()) {
-            case "String":
-            case "Character":
-                return "string";
-            case "Integer":
-            case "Long":
-                return "integer";
-            case "Double":
-            case "Float":
-            case "Short":
-                return "double";
-            case "Boolean":
-                return "boolean";
-        }
-        throw new IllegalArgumentException("不支持的类型：" + type);
+       return PropertyType.parse(type).getName();
     }
 
 }
