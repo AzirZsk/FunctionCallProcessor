@@ -2,14 +2,17 @@ package org.github.azirzsk.fcp.annotation;
 
 import org.github.azirzsk.fcp.converter.Converter;
 
-import java.lang.annotation.*;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * @author zhangshukun
  * @since 2024/11/15
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.PARAMETER)
+@Target({ElementType.PARAMETER, ElementType.FIELD})
 public @interface Property {
 
     String USE_PARAM_NAME = "USE_PARAM_NAME";
@@ -19,15 +22,10 @@ public @interface Property {
     String desc();
 
     /**
-     * 参数对应类型，支持类型
-     * <pre>
-     *     1. String
-     *     2. Integer
-     *     3. Double
-     *     4. Boolean
-     * </pre>
+     * 参数对应类型
      *
      * @return 参数类型
+     * @see org.github.azirzsk.fcp.enums.PropertyType 枚举类
      */
     Class<?> type() default AutoType.class;
 
