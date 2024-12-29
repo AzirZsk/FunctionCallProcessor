@@ -1,7 +1,10 @@
 package org.github.azirzsk.fcp.enums;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+import org.github.azirzsk.fcp.annotation.Property;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,6 +13,7 @@ import java.util.Set;
  * @author zhangshukun
  * @since 2024/12/22
  */
+@Slf4j
 @Getter
 public enum PropertyType {
 
@@ -22,7 +26,8 @@ public enum PropertyType {
     FLOAT("float", "单精度浮点型", new Class<?>[]{Float.class, float.class}),
 
     BOOLEAN("boolean", "布尔型", new Class<?>[]{Boolean.class, boolean.class}),
-    ;
+
+    OBJECT("object", "对象类型", new Class<?>[]{Object.class});;
 
     private final String name;
 
@@ -48,6 +53,13 @@ public enum PropertyType {
                 return value;
             }
         }
+        // 检查类中字段是否存在@Property注解。如果有一个，则代表要使用object类型
+        Field[] declaredFields = type.getDeclaredFields();
+        if (Arrays.stream(declaredFields)
+                .anyMatch(field -> field.isAnnotationPresent(Property.class))) {
+            return OBJECT;
+        }
+        log.warn("暂不支持该类型：{}，类中也没有标注@Property注解的字段", type);
         throw new IllegalArgumentException("暂不支持该类型：" + type);
     }
 
