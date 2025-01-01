@@ -1,7 +1,7 @@
 package org.github.azirzsk.fcp.parser.property;
 
 import org.github.azirzsk.fcp.entity.PropertyEntity;
-import org.github.azirzsk.fcp.testclass.field.FieldTest;
+import org.github.azirzsk.fcp.testclass.property.FieldTestClass;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -17,14 +17,14 @@ public class FieldParserTest {
     @Test
     public void testFieldParser() {
         FieldParser fieldParser = new FieldParser();
-        PropertyEntity propertyEntity = fieldParser.parse(FieldTest.LOCATION_FIELD);
+        PropertyEntity propertyEntity = fieldParser.parse(FieldTestClass.LOCATION_FIELD);
 
         PropertyEntity expect = new PropertyEntity();
         expect.setName("location");
         expect.setType("string");
-        expect.setRequired(true);
+        expect.setRequire(true);
         expect.setDescription("位置");
-        expect.setField(FieldTest.LOCATION_FIELD);
+        expect.setField(FieldTestClass.LOCATION_FIELD);
 
         Assertions.assertEquals(expect, propertyEntity);
     }
@@ -32,14 +32,14 @@ public class FieldParserTest {
     @Test
     public void testAssignTypeFieldParser() {
         FieldParser fieldParser = new FieldParser();
-        PropertyEntity propertyEntity = fieldParser.parse(FieldTest.INT_STRING_FIELD);
+        PropertyEntity propertyEntity = fieldParser.parse(FieldTestClass.INT_STRING_FIELD);
 
         PropertyEntity expect = new PropertyEntity();
         expect.setName("intString");
         expect.setType("integer");
-        expect.setRequired(true);
+        expect.setRequire(true);
         expect.setDescription("整型字符串");
-        expect.setField(FieldTest.INT_STRING_FIELD);
+        expect.setField(FieldTestClass.INT_STRING_FIELD);
 
         Assertions.assertEquals(expect, propertyEntity);
     }
@@ -47,15 +47,15 @@ public class FieldParserTest {
     @Test
     public void testAssignEnumFieldParser() {
         FieldParser fieldParser = new FieldParser();
-        PropertyEntity propertyEntity = fieldParser.parse(FieldTest.VACATION_TYPE_FIELD);
+        PropertyEntity propertyEntity = fieldParser.parse(FieldTestClass.VACATION_TYPE_FIELD);
 
         PropertyEntity expect = new PropertyEntity();
         expect.setName("vacationType");
         expect.setType("string");
-        expect.setRequired(true);
+        expect.setRequire(true);
         expect.setDescription("假期类型");
-        expect.setField(FieldTest.VACATION_TYPE_FIELD);
-        List<Object> enumList = Arrays.asList(FieldTest.VacationType.SICK_LEAVE.name(), FieldTest.VacationType.ANNUAL_LEAVE.name());
+        expect.setField(FieldTestClass.VACATION_TYPE_FIELD);
+        List<Object> enumList = Arrays.asList(FieldTestClass.VacationType.SICK_LEAVE.name(), FieldTestClass.VacationType.ANNUAL_LEAVE.name());
         expect.setEnumList(enumList);
 
         Assertions.assertEquals(expect, propertyEntity);
@@ -64,7 +64,7 @@ public class FieldParserTest {
     @Test
     public void testNoFieldAnnotationParser() {
         FieldParser fieldParser = new FieldParser();
-        PropertyEntity propertyEntity = fieldParser.parse(FieldTest.NO_ANNOTATION_FIELD);
+        PropertyEntity propertyEntity = fieldParser.parse(FieldTestClass.NO_ANNOTATION_FIELD);
 
         Assertions.assertNull(propertyEntity);
     }

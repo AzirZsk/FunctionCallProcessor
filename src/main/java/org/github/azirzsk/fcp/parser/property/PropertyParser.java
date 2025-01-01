@@ -7,50 +7,53 @@ import org.github.azirzsk.fcp.enums.PropertyType;
 import org.github.azirzsk.fcp.parser.Parser;
 import org.github.azirzsk.fcp.utils.ParserUtils;
 
-import java.lang.reflect.Field;
+import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 /**
- * 根据属性上的{@link Property}注解，解析字段信息
- *
  * @author zhangshukun
- * @since 2024/12/26
+ * @since 2024/11/17
  */
 @Slf4j
-public class FieldParser implements Parser<Field, PropertyEntity> {
+public class PropertyParser implements Parser<Parameter, PropertyEntity> {
 
     private static final ObjectPropertyParser OBJECT_PROPERTY_PARSER = new ObjectPropertyParser();
 
-    @Override
-    public PropertyEntity parse(Field field) {
-        if (log.isDebugEnabled()) {
-            log.debug("解析字段：{}", field);
+    /**
+     * 解析参数属性
+     *
+     * @param parameter 方法的参数
+     * @return Function中参数需要的属性
+     */
+    public PropertyEntity parse(Parameter parameter) {
+        if (log.isTraceEnabled()) {
+            log.trace("解析参数：{}", parameter);
         }
-        Property property = field.getAnnotation(Property.class);
+        Property property = parameter.getAnnotation(Property.class);
         if (property == null) {
-            if (log.isDebugEnabled()) {
-                log.debug("字段没有@Property注解，不进行解析：{}", field);
+            if (log.isTraceEnabled()) {
+                log.trace("参数没有@Property注解，不进行解析：{}", parameter);
             }
             return null;
         }
         PropertyEntity propertyEntity = new PropertyEntity()
-                .setName(Property.USE_PARAM_NAME.equals(property.name()) ? field.getName() : property.name())
+                .setName(Property.USE_PARAM_NAME.equals(property.name()) ? parameter.getName() : property.name())
                 .setDescription(property.desc())
-                .setField(field)
+                .setParameter(parameter)
                 .setRequire(property.required());
 
         // 解析参数对应类型
         Class<?> type = property.type();
         if (Property.AutoType.class == type) {
-            propertyEntity.setType(ParserUtils.parseType(field.getType()));
+            propertyEntity.setType(ParserUtils.parseType(parameter.getType()));
         } else {
             propertyEntity.setType(type.getSimpleName().toLowerCase());
         }
         // object类型的property
         if (PropertyType.OBJECT.getName().equals(propertyEntity.getType())) {
-            Map<String, PropertyEntity> innerProperties = OBJECT_PROPERTY_PARSER.parse(field.getType());
+            Map<String, PropertyEntity> innerProperties = OBJECT_PROPERTY_PARSER.parse(parameter.getType());
             propertyEntity.setProperties(innerProperties);
             // require
             List<String> innerRequiredList = new ArrayList<>();
@@ -67,12 +70,13 @@ public class FieldParser implements Parser<Field, PropertyEntity> {
         }
         // 参数合法性校验 type:object和枚举值不能同时存在
         if (PropertyType.OBJECT.getName().equals(propertyEntity.getType()) && propertyEntity.getEnumList() != null) {
-            log.warn("参数类型为object时，不能同时设置枚举值。innerProperties：{}，enumList：{}", propertyEntity.getProperties(), propertyEntity.getEnumList());
+            log.warn("参数类型为object时，不能同时设置枚举值。typeClass：{}，enumList：{}", type, propertyEntity.getEnumList());
             throw new IllegalArgumentException("参数类型为object时，不能同时设置枚举值");
         }
-        if (log.isDebugEnabled()) {
-            log.debug("字段解析完成");
+        if (log.isTraceEnabled()) {
+            log.trace("解析参数完成");
         }
         return propertyEntity;
     }
+
 }

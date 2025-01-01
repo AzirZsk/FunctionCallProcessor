@@ -3,6 +3,7 @@ package org.github.azirzsk.fcp.parser;
 import lombok.extern.slf4j.Slf4j;
 import org.github.azirzsk.fcp.entity.ParametersEntity;
 import org.github.azirzsk.fcp.entity.PropertyEntity;
+import org.github.azirzsk.fcp.parser.property.PropertyParser;
 
 import java.lang.reflect.Parameter;
 import java.util.*;
@@ -30,7 +31,7 @@ public class ParameterParser implements Parser<Parameter[], ParametersEntity> {
             }
             property.setIndex(i);
             properties.put(property.getName(), property);
-            if (property.isRequired()) {
+            if (property.isRequire()) {
                 requiredList.add(property.getName());
             }
         }

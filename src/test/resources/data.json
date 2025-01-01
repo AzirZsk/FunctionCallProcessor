@@ -44,5 +44,97 @@
         "strict": true
       }
     }
-  ]
+  ],
+  "FieldTest": {
+    "vacationType": {
+      "type": "string",
+      "description": "假期类型",
+      "enum": [
+        "SICK_LEAVE",
+        "ANNUAL_LEAVE"
+      ]
+    },
+    "location": {
+      "type": "string",
+      "description": "位置"
+    },
+    "intString": {
+      "type": "integer",
+      "description": "整型字符串"
+    }
+  },
+  "ObjectPropertyParserTest.testNestObjectParser": {
+    "userInfo": {
+      "type": "object",
+      "description": "用户信息",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "姓名"
+        },
+        "age": {
+          "type": "int",
+          "description": "年龄"
+        }
+      },
+      "required": [
+        "name",
+        "age"
+      ]
+    },
+    "address": {
+      "type": "string",
+      "description": "地址"
+    }
+  },
+  "PropertyParserTest.testCustomObjectParser": {
+    "type": "object",
+    "description": "员工信息",
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "姓名"
+      },
+      "age": {
+        "type": "int",
+        "description": "年龄"
+      }
+    },
+    "required": [
+      "name",
+      "age"
+    ]
+  },
+  "PropertyParserTest.testNestCustomObjectParser": {
+    "type": "object",
+    "description": "家",
+    "properties": {
+      "userInfo": {
+        "type": "object",
+        "description": "用户信息",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "姓名"
+          },
+          "age": {
+            "type": "int",
+            "description": "年龄"
+          }
+        },
+        "required": [
+          "name",
+          "age"
+        ]
+      },
+      "address": {
+        "type": "string",
+        "description": "地址"
+      }
+    },
+    "required": [
+      "userInfo",
+      "address"
+    ]
+  }
 }
