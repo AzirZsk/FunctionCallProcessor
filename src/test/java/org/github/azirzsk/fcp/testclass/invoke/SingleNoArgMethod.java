@@ -1,4 +1,4 @@
-package org.github.azirzsk.fcp.testclass.tool;
+package org.github.azirzsk.fcp.testclass.invoke;
 
 import org.github.azirzsk.fcp.annotation.Function;
 

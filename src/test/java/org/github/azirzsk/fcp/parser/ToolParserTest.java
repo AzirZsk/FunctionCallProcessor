@@ -1,7 +1,7 @@
 package org.github.azirzsk.fcp.parser;
 
 import org.github.azirzsk.fcp.entity.ToolEntity;
-import org.github.azirzsk.fcp.testclass.tool.SingleReturnMethod;
+import org.github.azirzsk.fcp.testclass.invoke.SingleReturnMethod;
 import org.github.azirzsk.fcp.utils.FileUtils;
 import org.github.azirzsk.fcp.utils.JsonUtils;
 import org.junit.jupiter.api.Assertions;

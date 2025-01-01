@@ -60,6 +60,7 @@ public class FunctionCall {
     private Object[] parseArguments(JSONObject argumentJson, ParametersEntity parameters) {
         Map<String, PropertyEntity> propertiesMap = parameters.getProperties();
         Collection<PropertyEntity> property = propertiesMap.values();
+        // 根据方法中参数顺序排序
         List<PropertyEntity> sortedList = property.stream()
                 .sorted(Comparator.comparingInt(PropertyEntity::getIndex).reversed())
                 .collect(Collectors.toList());

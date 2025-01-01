@@ -1,9 +1,9 @@
 package org.github.azirzsk.fcp.invoke;
 
 import org.github.azirzsk.fcp.FCP;
-import org.github.azirzsk.fcp.testclass.tool.SingleNoArgMethod;
-import org.github.azirzsk.fcp.testclass.tool.SingleNoReturnMethod;
-import org.github.azirzsk.fcp.testclass.tool.SingleReturnMethod;
+import org.github.azirzsk.fcp.testclass.invoke.SingleNoArgMethod;
+import org.github.azirzsk.fcp.testclass.invoke.SingleNoReturnMethod;
+import org.github.azirzsk.fcp.testclass.invoke.SingleReturnMethod;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -52,5 +52,25 @@ public class FunctionCallTest {
 
         String invokeStr = "{}";
         Assertions.assertEquals(123, fcp.functionCall("noArg", invokeStr));
+    }
+
+    @Test
+    public void testCustomObject() {
+        SingleReturnMethod singleReturnMethod = new SingleReturnMethod();
+        FCP fcp = FCP.create();
+        fcp.functionCall(singleReturnMethod);
+
+        String invokeStr = "{\"user\":{\"name\":\"azirzsk\",\"age\":25}}";
+        Assertions.assertEquals("姓名：azirzsk，年龄：25", fcp.functionCall("print", invokeStr));
+    }
+
+    @Test
+    public void testNestCustomObject() {
+        SingleReturnMethod singleReturnMethod = new SingleReturnMethod();
+        FCP fcp = FCP.create();
+        fcp.functionCall(singleReturnMethod);
+
+        String invokeStr = "{\"home\":{\"address\":\"北京市朝阳区\",\"userInfo\":{\"name\":\"azirzsk\",\"age\":25}}}";
+        Assertions.assertEquals("地址：北京市朝阳区，用户信息：姓名：azirzsk，年龄：25", fcp.functionCall("printHome", invokeStr));
     }
 }
