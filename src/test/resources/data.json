@@ -21,6 +21,41 @@
     {
       "type": "function",
       "function": {
+        "name": "print",
+        "description": "打印用户信息",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "user": {
+              "type": "object",
+              "description": "用户信息",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "姓名"
+                },
+                "age": {
+                  "type": "int",
+                  "description": "年龄"
+                }
+              },
+              "required": [
+                "name",
+                "age"
+              ]
+            }
+          },
+          "required": [
+            "user"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      }
+    },
+    {
+      "type": "function",
+      "function": {
         "name": "gcd",
         "description": "计算最大公约数",
         "parameters": {
@@ -38,6 +73,55 @@
           "required": [
             "a",
             "b"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "printHome",
+        "description": "打印家庭信息",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "home": {
+              "type": "object",
+              "description": "家庭信息",
+              "properties": {
+                "userInfo": {
+                  "type": "object",
+                  "description": "用户信息",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "姓名"
+                    },
+                    "age": {
+                      "type": "int",
+                      "description": "年龄"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "age"
+                  ]
+                },
+                "address": {
+                  "type": "string",
+                  "description": "地址"
+                }
+              },
+              "required": [
+                "userInfo",
+                "address"
+              ]
+            }
+          },
+          "required": [
+            "home"
           ],
           "additionalProperties": false
         },

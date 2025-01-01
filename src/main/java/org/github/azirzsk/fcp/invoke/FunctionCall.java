@@ -62,7 +62,7 @@ public class FunctionCall {
         Collection<PropertyEntity> property = propertiesMap.values();
         // 根据方法中参数顺序排序
         List<PropertyEntity> sortedList = property.stream()
-                .sorted(Comparator.comparingInt(PropertyEntity::getIndex).reversed())
+                .sorted(Comparator.comparingInt(PropertyEntity::getIndex))
                 .collect(Collectors.toList());
         Object[] res = new Object[sortedList.size()];
         for (int i = 0; i < sortedList.size(); i++) {

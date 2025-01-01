@@ -4,10 +4,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.github.azirzsk.fcp.annotation.Function;
 import org.github.azirzsk.fcp.entity.FunctionEntity;
 import org.github.azirzsk.fcp.entity.ToolEntity;
+import org.github.azirzsk.fcp.utils.ParserUtils;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author zhangshukun
@@ -25,6 +28,7 @@ public class ToolParser {
             log.warn("'{}'中没有任何方法", clazz);
             throw new NullPointerException(clazz + "中没有任何方法");
         }
+        Set<String> functionNameSet = new HashSet<>();
         List<ToolEntity> toolEntityList = new ArrayList<>();
         for (Method method : methods) {
             Function function = method.getAnnotation(Function.class);
@@ -32,7 +36,12 @@ public class ToolParser {
                 continue;
             }
             FunctionEntity functionEntity = FUNCTION_PARSER.parse(method);
-
+            if (functionNameSet.contains(functionEntity.getName())) {
+                log.warn("'{}'中存在重名的方法：{}", clazz, functionEntity.getName());
+                String newFunctionName = ParserUtils.parseMethodName(method);
+                functionEntity.setName(newFunctionName);
+            }
+            functionNameSet.add(functionEntity.getName());
             ToolEntity toolEntity = new ToolEntity();
             toolEntity.setFunction(functionEntity);
             toolEntityList.add(toolEntity);

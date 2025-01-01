@@ -1,6 +1,7 @@
 package org.github.azirzsk.fcp.invoke;
 
 import org.github.azirzsk.fcp.FCP;
+import org.github.azirzsk.fcp.testclass.invoke.RepeatMethod;
 import org.github.azirzsk.fcp.testclass.invoke.SingleNoArgMethod;
 import org.github.azirzsk.fcp.testclass.invoke.SingleNoReturnMethod;
 import org.github.azirzsk.fcp.testclass.invoke.SingleReturnMethod;
@@ -72,5 +73,16 @@ public class FunctionCallTest {
 
         String invokeStr = "{\"home\":{\"address\":\"北京市朝阳区\",\"userInfo\":{\"name\":\"azirzsk\",\"age\":25}}}";
         Assertions.assertEquals("地址：北京市朝阳区，用户信息：姓名：azirzsk，年龄：25", fcp.functionCall("printHome", invokeStr));
+    }
+
+    @Test
+    public void testRepeatMethod() {
+        RepeatMethod repeatMethod = new RepeatMethod();
+        FCP fcp = FCP.create();
+        fcp.functionCall(repeatMethod);
+
+        String invokeStr = "{\"str\":\"hello world\",\"repeat\":3}";
+        Assertions.assertEquals("hello worldhello worldhello world", fcp.functionCall("print(String, int)", invokeStr));
+
     }
 }
