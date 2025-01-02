@@ -1,7 +1,7 @@
 # 🛠️ Function Call Processor (FCP)
 
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.azirzsk/function-call-processor)](https://search.maven.org/artifact/io.github.azirzsk/function-call-processor)
-[![License](https://img.shields.io/github/license/azirzsk/FunctionCallProcessor)](https://github.com/azirzsk/FunctionCallProcessor/blob/main/LICENSE)
+[![License](https://img.shields.io/github/license/azirzsk/FunctionCallProcessor)](https://github.com/azirzsk/FunctionCallProcessor/blob/master/LICENSE)
 [![Java Version](https://img.shields.io/badge/Java-11%2B-blue)](https://www.java.com)
 [![GitHub stars](https://img.shields.io/github/stars/azirzsk/FunctionCallProcessor)](https://github.com/azirzsk/FunctionCallProcessor/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/azirzsk/FunctionCallProcessor)](https://github.com/azirzsk/FunctionCallProcessor/issues)
