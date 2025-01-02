@@ -6,9 +6,13 @@ import org.github.azirzsk.fcp.entity.ToolEntity;
 import org.github.azirzsk.fcp.invoke.FunctionCall;
 import org.github.azirzsk.fcp.parser.ToolParser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * FunctionCall入口类
+ * 生成JSON格式的工具调用以及回调对应方法
+ *
  * @author zhangshukun
  * @since 2024/11/25
  */
@@ -18,6 +22,8 @@ public class FCP {
     private final ToolParser toolParser = new ToolParser();
 
     private final FunctionCall functionCall = new FunctionCall();
+
+    private final List<ToolEntity> toolEntityList = new ArrayList<>();
 
     public static FCP create() {
         return new FCP();
@@ -33,20 +39,38 @@ public class FCP {
      * @param function 对象
      * @return FunctionCall
      */
-    public String functionCall(Object function) {
-        List<ToolEntity> toolEntityList = toolParser.parse(function.getClass());
-        if (toolEntityList.isEmpty()) {
-            throw new NullPointerException("传入的对应没有Function注解");
+    public String parse(Object function) {
+        List<ToolEntity> parseResult = toolParser.parse(function.getClass());
+        if (parseResult.isEmpty()) {
+            log.warn("传入的对象中没有标注@Function注解的方法");
+            throw new NullPointerException("传入的对象中没有标注@Function注解的方法");
         }
         // 构造函数名和实际方法的映射关系
-        for (ToolEntity toolEntity : toolEntityList) {
+        for (ToolEntity toolEntity : parseResult) {
             String name = toolEntity.getFunction().getName();
             functionCall.getMethodMap().put(name, toolEntity.getFunction());
         }
         functionCall.getObjectMap().put(function.getClass(), function);
+        this.toolEntityList.addAll(parseResult);
+        return JSON.toJSONString(parseResult);
+    }
+
+    /**
+     * 获取当前已解析的FunctionCall
+     *
+     * @return FunctionCall
+     */
+    public String getAllFunctionCall() {
         return JSON.toJSONString(toolEntityList);
     }
 
+    /**
+     * 回调对应方法
+     *
+     * @param name         方法名称
+     * @param argumentsStr 调用参数
+     * @return 调用结果
+     */
     public Object functionCall(String name, String argumentsStr) {
         return functionCall.functionCall(name, argumentsStr);
     }

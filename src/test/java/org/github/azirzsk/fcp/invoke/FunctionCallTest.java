@@ -18,7 +18,7 @@ public class FunctionCallTest {
     public void testInvoke() {
         SingleReturnMethod toolTestClass = new SingleReturnMethod();
         FCP fcp = FCP.create();
-        fcp.functionCall(toolTestClass);
+        fcp.parse(toolTestClass);
 
         String invokeStr1 = "{\"a\":25,\"b\":230}";
         Assertions.assertEquals(5, fcp.functionCall("gcd", invokeStr1));
@@ -30,7 +30,7 @@ public class FunctionCallTest {
     public void testInvokeException() {
         SingleReturnMethod toolTestClass = new SingleReturnMethod();
         FCP fcp = FCP.create();
-        fcp.functionCall(toolTestClass);
+        fcp.parse(toolTestClass);
         String invokeStr = "{\"b\":25,\"b\":230}";
         Assertions.assertThrows(NullPointerException.class, () -> fcp.functionCall("gcd", invokeStr), "没有找到对应的方法：gcd.a");
     }
@@ -39,7 +39,7 @@ public class FunctionCallTest {
     public void testVoidReturn() {
         SingleNoReturnMethod singleNoReturnMethod = new SingleNoReturnMethod();
         FCP fcp = FCP.create();
-        fcp.functionCall(singleNoReturnMethod);
+        fcp.parse(singleNoReturnMethod);
 
         String invokeStr = "{\"message\":\"hello world\"}";
         Assertions.assertNull(fcp.functionCall("printArg", invokeStr));
@@ -49,7 +49,7 @@ public class FunctionCallTest {
     public void testNoArg() {
         SingleNoArgMethod singleNoArgMethod = new SingleNoArgMethod();
         FCP fcp = FCP.create();
-        fcp.functionCall(singleNoArgMethod);
+        fcp.parse(singleNoArgMethod);
 
         String invokeStr = "{}";
         Assertions.assertEquals(123, fcp.functionCall("noArg", invokeStr));
@@ -59,7 +59,7 @@ public class FunctionCallTest {
     public void testCustomObject() {
         SingleReturnMethod singleReturnMethod = new SingleReturnMethod();
         FCP fcp = FCP.create();
-        fcp.functionCall(singleReturnMethod);
+        fcp.parse(singleReturnMethod);
 
         String invokeStr = "{\"user\":{\"name\":\"azirzsk\",\"age\":25}}";
         Assertions.assertEquals("姓名：azirzsk，年龄：25", fcp.functionCall("print", invokeStr));
@@ -69,7 +69,7 @@ public class FunctionCallTest {
     public void testNestCustomObject() {
         SingleReturnMethod singleReturnMethod = new SingleReturnMethod();
         FCP fcp = FCP.create();
-        fcp.functionCall(singleReturnMethod);
+        fcp.parse(singleReturnMethod);
 
         String invokeStr = "{\"home\":{\"address\":\"北京市朝阳区\",\"userInfo\":{\"name\":\"azirzsk\",\"age\":25}}}";
         Assertions.assertEquals("地址：北京市朝阳区，用户信息：姓名：azirzsk，年龄：25", fcp.functionCall("printHome", invokeStr));
@@ -79,7 +79,7 @@ public class FunctionCallTest {
     public void testRepeatMethod() {
         RepeatMethod repeatMethod = new RepeatMethod();
         FCP fcp = FCP.create();
-        fcp.functionCall(repeatMethod);
+        fcp.parse(repeatMethod);
 
         String invokeStr = "{\"str\":\"hello world\",\"repeat\":3}";
         Assertions.assertEquals("hello worldhello worldhello world", fcp.functionCall("print(String, int)", invokeStr));
