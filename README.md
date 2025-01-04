@@ -17,9 +17,11 @@ FCP是一个基于注解的Java工具库，只需使用`@Function`和`@Property`
 
 - JDK 11 或更高版本
 
-## 📦 引入依赖
+## 🚀 快速开始
 
-### Maven
+### 📦 引入依赖
+
+#### Maven
 ```xml
 <dependency>
     <groupId>io.github.azirzsk</groupId>
@@ -28,12 +30,10 @@ FCP是一个基于注解的Java工具库，只需使用`@Function`和`@Property`
 </dependency>
 ```
 
-### Gradle
+#### Gradle
 ```groovy
 implementation 'io.github.azirzsk:function-call-processor:1.0.0'
 ```
-
-## 🚀 快速开始
 
 ### 📤 1. 解析对象方法为FunctionCall
 
