@@ -73,42 +73,54 @@ String functionCallJson = fcp.parse(calculator);
 
 ```json
 [
-    {
-        "name": "add",
-        "description": "将两个数字相加",
-        "parameters": {
-            "type": "object",
-            "properties": {
-                "a": {
-                    "type": "integer",
-                    "description": "第一个数字"
-                },
-                "b": {
-                    "type": "integer",
-                    "description": "第二个数字"
-                }
-            },
-            "required": ["a", "b"]
-        }
-    },
-    {
-        "name": "multiply",
-        "description": "将两个数字相乘",
-        "parameters": {
-            "type": "object",
-            "properties": {
-                "x": {
-                    "type": "integer",
-                    "description": "第一个数字"
-                },
-                "y": {
-                    "type": "integer",
-                    "description": "第二个数字"
-                }
-            },
-            "required": ["x", "y"]
-        }
+  {
+    "type": "function",
+    "function": {
+      "name": "add",
+      "description": "将两个数字相加",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "a": {
+            "type": "integer",
+            "description": "第一个数字"
+          },
+          "b": {
+            "type": "integer",
+            "description": "第二个数字"
+          }
+        },
+        "required": [
+          "a",
+          "b"
+        ]
+      }
     }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "multiply",
+      "description": "将两个数字相乘",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "type": "integer",
+            "description": "第一个数字"
+          },
+          "y": {
+            "type": "integer",
+            "description": "第二个数字"
+          }
+        },
+        "required": [
+          "x",
+          "y"
+        ]
+      }
+    }
+  }
 ]
 ```
 
