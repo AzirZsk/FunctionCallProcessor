@@ -6,7 +6,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/azirzsk/FunctionCallProcessor)](https://github.com/azirzsk/FunctionCallProcessor/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/azirzsk/FunctionCallProcessor)](https://github.com/azirzsk/FunctionCallProcessor/issues)
 
-FCP是一个基于注解的Java工具库，只需使用`@Function`和`@Property`注解，即可轻松将Java方法转换为大语言模型可识别的函数调用格式，并支持自动解析大语言模型返回的函数调用结果执行对应方法。
+FCP是一个基于注解的Java工具库，只需使用`@Function`和`@Property`注解，即可轻松将Java方法转换为大模型可识别的FunctionCall格式，并且还支持方法的快速回调。
 
 ## ✨ 功能特性
 
