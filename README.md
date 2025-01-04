@@ -41,17 +41,15 @@ implementation 'io.github.azirzsk:function-call-processor:1.0.0'
 
 ```java
 public class Calculator {
-    @Function(name = "add", 
-              description = "将两个数字相加")
-    public int add(@Property(description = "第一个数字") int a,
-                  @Property(description = "第二个数字") int b) {
+    @Function(desc = "将两个数字相加")
+    public int add(@Property(desc = "第一个数字") int a,
+                  @Property(desc = "第二个数字") int b) {
         return a + b;
     }
 
-    @Function(name = "multiply", 
-              description = "将两个数字相乘")
-    public int multiply(@Property(description = "第一个数字") int x,
-                       @Property(description = "第二个数字") int y) {
+    @Function(desc = "将两个数字相乘")
+    public int multiply(@Property(desc = "第一个数字") int x,
+                       @Property(desc = "第二个数字") int y) {
         return x * y;
     }
 }
