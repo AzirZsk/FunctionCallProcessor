@@ -10,8 +10,8 @@ FCP是一个基于注解的Java工具库，只需使用`@Function`和`@Property`
 
 ## ✨ 功能特性
 
-- 通过注解将Java方法解析为大语言模型的函数调用格式
-- 自动执行大语言模型返回的函数调用
+- 通过注解将Java方法解析为大模型的函数调用格式
+- 自动执行大模型返回的函数调用
 
 ## 🔧 环境要求
 
@@ -37,7 +37,7 @@ implementation 'io.github.azirzsk:function-call-processor:1.0.0'
 
 ### 📤 1. 解析对象方法为FunctionCall
 
-将Java对象中的方法解析为大语言模型可识别的FunctionCall格式：
+将Java对象中的方法解析为大模型可识别的FunctionCall格式：
 
 ```java
 public class Calculator {
@@ -128,7 +128,7 @@ String functionCallJson = fcp.parse(calculator);
 
 ### 📥 2. 执行FunctionCall回调
 
-接收大语言模型返回的FunctionCall并执行对应的方法。
+接收大模型返回的FunctionCall并执行对应的方法。
 
 ```java
 // 创建FCP实例（如果已创建可以复用）
@@ -138,7 +138,7 @@ FCP fcp = FCP.create();
 Calculator calculator = new Calculator();
 fcp.parse(calculator);
 
-// 大语言模型返回的tool_calls格式
+// 大模型返回的tool_calls格式
 String llmResponse = """
 {
     "tool_calls": [
@@ -154,7 +154,7 @@ String llmResponse = """
 }
 """;
 
-// 从大语言模型响应中提取函数名和参数
+// 从大模型响应中提取函数名和参数
 String functionName = "add";  // 从llmResponse中解析function.name
 String argumentsJson = "{\"a\": 1, \"b\": 2}";  // 从llmResponse中解析function.arguments
 
