@@ -1,6 +1,7 @@
 package io.github.azirzsk.fcp.parser.property;
 
 import com.alibaba.fastjson2.JSON;
+import io.github.azirzsk.fcp.FCPConfiguration;
 import io.github.azirzsk.fcp.entity.PropertyEntity;
 import io.github.azirzsk.fcp.testclass.EmptyClass;
 import io.github.azirzsk.fcp.testclass.property.FieldTestClass;
@@ -20,7 +21,7 @@ public class ObjectPropertyParserTest {
 
     @Test
     public void testNormalParser() {
-        ObjectPropertyParser objectPropertyParser = new ObjectPropertyParser();
+        ObjectPropertyParser objectPropertyParser = new ObjectPropertyParser(new FCPConfiguration());
         Map<String, PropertyEntity> parse = objectPropertyParser.parse(FieldTestClass.class);
 
         Object fieldTest = FileUtils.getJsonObject("FieldTest");
@@ -29,7 +30,7 @@ public class ObjectPropertyParserTest {
 
     @Test
     public void testEmptyClassParser() {
-        ObjectPropertyParser objectPropertyParser = new ObjectPropertyParser();
+        ObjectPropertyParser objectPropertyParser = new ObjectPropertyParser(new FCPConfiguration());
         Map<String, PropertyEntity> parse = objectPropertyParser.parse(EmptyClass.class);
 
         Assertions.assertEquals(Collections.emptyMap(), parse);
@@ -37,7 +38,7 @@ public class ObjectPropertyParserTest {
 
     @Test
     public void testNestObjectParser() {
-        ObjectPropertyParser objectPropertyParser = new ObjectPropertyParser();
+        ObjectPropertyParser objectPropertyParser = new ObjectPropertyParser(new FCPConfiguration());
         Map<String, PropertyEntity> parse = objectPropertyParser.parse(PropertyTestClass.Home.class);
 
         Object jsonObject = FileUtils.getJsonObject("ObjectPropertyParserTest.testNestObjectParser");

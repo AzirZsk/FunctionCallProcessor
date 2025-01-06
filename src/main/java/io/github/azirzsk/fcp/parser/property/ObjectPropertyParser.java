@@ -1,7 +1,8 @@
 package io.github.azirzsk.fcp.parser.property;
 
+import io.github.azirzsk.fcp.FCPConfiguration;
 import io.github.azirzsk.fcp.entity.PropertyEntity;
-import io.github.azirzsk.fcp.parser.Parser;
+import io.github.azirzsk.fcp.parser.AbstractParser;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Field;
@@ -14,9 +15,11 @@ import java.util.Map;
  * @since 2024/12/26
  */
 @Slf4j
-public class ObjectPropertyParser implements Parser<Class<?>, Map<String, PropertyEntity>> {
+public class ObjectPropertyParser extends AbstractParser<Class<?>, Map<String, PropertyEntity>> {
 
-    private static final FieldParser FIELD_PARSER = new FieldParser();
+    public ObjectPropertyParser(FCPConfiguration fcpConfiguration) {
+        super(fcpConfiguration);
+    }
 
     @Override
     public Map<String, PropertyEntity> parse(Class<?> clazz) {
@@ -32,7 +35,7 @@ public class ObjectPropertyParser implements Parser<Class<?>, Map<String, Proper
         }
         Map<String, PropertyEntity> res = new HashMap<>();
         for (Field field : fields) {
-            PropertyEntity propertyEntity = FIELD_PARSER.parse(field);
+            PropertyEntity propertyEntity = fcpConfiguration.getFieldParser().parse(field);
             if (propertyEntity == null) {
                 continue;
             }

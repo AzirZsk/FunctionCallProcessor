@@ -19,18 +19,21 @@ import java.util.List;
 @Slf4j
 public class FCP {
 
-    private final ToolParser toolParser = new ToolParser();
+    private final FCPConfiguration fcpConfiguration;
+
+    private final ToolParser toolParser;
 
     private final FunctionCall functionCall = new FunctionCall();
 
     private final List<ToolEntity> toolEntityList = new ArrayList<>();
 
-    public static FCP create() {
-        return new FCP();
+    private FCP(FCPConfiguration fcpConfiguration) {
+        this.fcpConfiguration = fcpConfiguration;
+        this.toolParser = new ToolParser(fcpConfiguration);
     }
 
-    private FCP() {
-
+    public static FCP create() {
+        return new FCP(new FCPConfiguration());
     }
 
     /**

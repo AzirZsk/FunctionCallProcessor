@@ -1,9 +1,10 @@
 package io.github.azirzsk.fcp.parser.property;
 
+import io.github.azirzsk.fcp.FCPConfiguration;
 import io.github.azirzsk.fcp.annotation.Property;
 import io.github.azirzsk.fcp.entity.PropertyEntity;
 import io.github.azirzsk.fcp.enums.PropertyType;
-import io.github.azirzsk.fcp.parser.Parser;
+import io.github.azirzsk.fcp.parser.AbstractParser;
 import io.github.azirzsk.fcp.utils.ParserUtils;
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,9 +18,11 @@ import java.util.Map;
  * @since 2024/11/17
  */
 @Slf4j
-public class PropertyParser implements Parser<Parameter, PropertyEntity> {
+public class PropertyParser extends AbstractParser<Parameter, PropertyEntity> {
 
-    private static final ObjectPropertyParser OBJECT_PROPERTY_PARSER = new ObjectPropertyParser();
+    public PropertyParser(FCPConfiguration fcpConfiguration) {
+        super(fcpConfiguration);
+    }
 
     /**
      * 解析参数属性
@@ -53,7 +56,7 @@ public class PropertyParser implements Parser<Parameter, PropertyEntity> {
         }
         // object类型的property
         if (PropertyType.OBJECT.getName().equals(propertyEntity.getType())) {
-            Map<String, PropertyEntity> innerProperties = OBJECT_PROPERTY_PARSER.parse(parameter.getType());
+            Map<String, PropertyEntity> innerProperties = fcpConfiguration.getObjectPropertyParser().parse(parameter.getType());
             propertyEntity.setProperties(innerProperties);
             // require
             List<String> innerRequiredList = new ArrayList<>();

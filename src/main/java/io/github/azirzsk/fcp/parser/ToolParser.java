@@ -1,5 +1,6 @@
 package io.github.azirzsk.fcp.parser;
 
+import io.github.azirzsk.fcp.FCPConfiguration;
 import io.github.azirzsk.fcp.annotation.Function;
 import io.github.azirzsk.fcp.entity.FunctionEntity;
 import io.github.azirzsk.fcp.entity.ToolEntity;
@@ -19,7 +20,11 @@ import java.util.Set;
 @Slf4j
 public class ToolParser {
 
-    private static final FunctionParser FUNCTION_PARSER = new FunctionParser();
+    private final FCPConfiguration fcpConfiguration;
+
+    public ToolParser(FCPConfiguration fcpConfiguration) {
+        this.fcpConfiguration = fcpConfiguration;
+    }
 
     public List<ToolEntity> parse(Class<?> clazz) {
         log.info("开始解析'{}'中的Function", clazz);
@@ -35,7 +40,7 @@ public class ToolParser {
             if (function == null) {
                 continue;
             }
-            FunctionEntity functionEntity = FUNCTION_PARSER.parse(method);
+            FunctionEntity functionEntity = fcpConfiguration.getFunctionParser().parse(method);
             if (functionNameSet.contains(functionEntity.getName())) {
                 log.warn("'{}'中存在重名的方法：{}", clazz, functionEntity.getName());
                 String newFunctionName = ParserUtils.parseMethodName(method);

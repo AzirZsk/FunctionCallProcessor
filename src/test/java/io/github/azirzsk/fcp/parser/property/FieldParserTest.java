@@ -1,5 +1,6 @@
 package io.github.azirzsk.fcp.parser.property;
 
+import io.github.azirzsk.fcp.FCPConfiguration;
 import io.github.azirzsk.fcp.entity.PropertyEntity;
 import io.github.azirzsk.fcp.testclass.property.FieldTestClass;
 import org.junit.jupiter.api.Assertions;
@@ -16,7 +17,7 @@ public class FieldParserTest {
 
     @Test
     public void testFieldParser() {
-        FieldParser fieldParser = new FieldParser();
+        FieldParser fieldParser = new FieldParser(new FCPConfiguration());
         PropertyEntity propertyEntity = fieldParser.parse(FieldTestClass.LOCATION_FIELD);
 
         PropertyEntity expect = new PropertyEntity();
@@ -31,7 +32,7 @@ public class FieldParserTest {
 
     @Test
     public void testAssignTypeFieldParser() {
-        FieldParser fieldParser = new FieldParser();
+        FieldParser fieldParser = new FieldParser(new FCPConfiguration());
         PropertyEntity propertyEntity = fieldParser.parse(FieldTestClass.INT_STRING_FIELD);
 
         PropertyEntity expect = new PropertyEntity();
@@ -46,7 +47,7 @@ public class FieldParserTest {
 
     @Test
     public void testAssignEnumFieldParser() {
-        FieldParser fieldParser = new FieldParser();
+        FieldParser fieldParser = new FieldParser(new FCPConfiguration());
         PropertyEntity propertyEntity = fieldParser.parse(FieldTestClass.VACATION_TYPE_FIELD);
 
         PropertyEntity expect = new PropertyEntity();
@@ -63,7 +64,7 @@ public class FieldParserTest {
 
     @Test
     public void testNoFieldAnnotationParser() {
-        FieldParser fieldParser = new FieldParser();
+        FieldParser fieldParser = new FieldParser(new FCPConfiguration());
         PropertyEntity propertyEntity = fieldParser.parse(FieldTestClass.NO_ANNOTATION_FIELD);
 
         Assertions.assertNull(propertyEntity);

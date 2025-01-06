@@ -1,6 +1,7 @@
 package io.github.azirzsk.fcp.parser.property;
 
 import com.alibaba.fastjson2.JSON;
+import io.github.azirzsk.fcp.FCPConfiguration;
 import io.github.azirzsk.fcp.entity.PropertyEntity;
 import io.github.azirzsk.fcp.testclass.property.FieldTestClass;
 import io.github.azirzsk.fcp.testclass.property.PropertyTestClass;
@@ -19,7 +20,7 @@ public class PropertyParserTest {
 
     @Test
     public void testNoAnnotationParser() {
-        PropertyParser propertyParser = new PropertyParser();
+        PropertyParser propertyParser = new PropertyParser(new FCPConfiguration());
         PropertyEntity propertyEntity = propertyParser.parse(PropertyTestClass.NO_ANNOTATION_PARAMETER);
 
         Assertions.assertNull(propertyEntity);
@@ -27,7 +28,7 @@ public class PropertyParserTest {
 
     @Test
     public void testNormalParser() {
-        PropertyParser propertyParser = new PropertyParser();
+        PropertyParser propertyParser = new PropertyParser(new FCPConfiguration());
         PropertyEntity propertyEntity = propertyParser.parse(PropertyTestClass.ANNOTATED_PARAMETER);
 
         PropertyEntity expect = new PropertyEntity();
@@ -41,7 +42,7 @@ public class PropertyParserTest {
 
     @Test
     public void testEnumParser() {
-        PropertyParser propertyParser = new PropertyParser();
+        PropertyParser propertyParser = new PropertyParser(new FCPConfiguration());
         PropertyEntity propertyEntity = propertyParser.parse(PropertyTestClass.VACATION_TYPE_PARAMETER);
 
         PropertyEntity expect = new PropertyEntity();
@@ -58,14 +59,14 @@ public class PropertyParserTest {
 
     @Test
     public void testEnumObjectParser() {
-        PropertyParser propertyParser = new PropertyParser();
+        PropertyParser propertyParser = new PropertyParser(new FCPConfiguration());
         Assertions.assertThrowsExactly(IllegalArgumentException.class,
                 () -> propertyParser.parse(PropertyTestClass.OBJECT_ENUM_PARAMETER), "参数类型为object时，不能同时设置枚举值");
     }
 
     @Test
     public void testAssignTypeParser() {
-        PropertyParser propertyParser = new PropertyParser();
+        PropertyParser propertyParser = new PropertyParser(new FCPConfiguration());
         PropertyEntity propertyEntity = propertyParser.parse(PropertyTestClass.STRING_PARAMETER);
 
         PropertyEntity expect = new PropertyEntity();
@@ -80,7 +81,7 @@ public class PropertyParserTest {
 
     @Test
     public void testCustomObjectParser() {
-        PropertyParser propertyParser = new PropertyParser();
+        PropertyParser propertyParser = new PropertyParser(new FCPConfiguration());
         PropertyEntity propertyEntity = propertyParser.parse(PropertyTestClass.CUSTOM_OBJECT_PARAMETER);
         Object expect = FileUtils.getJsonObject("PropertyParserTest.testCustomObjectParser");
 
@@ -89,7 +90,7 @@ public class PropertyParserTest {
 
     @Test
     public void testNestCustomObjectParser() {
-        PropertyParser propertyParser = new PropertyParser();
+        PropertyParser propertyParser = new PropertyParser(new FCPConfiguration());
         PropertyEntity propertyEntity = propertyParser.parse(PropertyTestClass.HOME_PARAMETER);
         System.out.println(JSON.toJSONString(propertyEntity));
         Object expect = FileUtils.getJsonObject("PropertyParserTest.testNestCustomObjectParser");
@@ -99,7 +100,7 @@ public class PropertyParserTest {
 
     @Test
     public void testRecursionObjectParser() {
-        PropertyParser propertyParser = new PropertyParser();
+        PropertyParser propertyParser = new PropertyParser(new FCPConfiguration());
         Assertions.assertThrowsExactly(StackOverflowError.class, () -> propertyParser.parse(PropertyTestClass.RECURSION_PARAMETER));
     }
 

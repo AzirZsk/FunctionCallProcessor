@@ -10,17 +10,17 @@ import io.github.azirzsk.fcp.testclass.property.PropertyTestClass;
  */
 public class SingleReturnMethod {
 
+    @Function(desc = "打印用户信息")
+    public String print(@Property(desc = "用户信息") PropertyTestClass.UserInfo user) {
+        return String.format("姓名：%s，年龄：%s", user.getName(), user.getAge());
+    }
+
     @Function(desc = "计算最大公约数")
     public int gcd(@Property(desc = "非负整数A") int a, @Property(desc = "非负整数B") int b) {
         if (b == 0) {
             return a;
         }
         return gcd(b, a % b);
-    }
-
-    @Function(desc = "打印用户信息")
-    public String print(@Property(desc = "用户信息") PropertyTestClass.UserInfo user) {
-        return String.format("姓名：%s，年龄：%s", user.getName(), user.getAge());
     }
 
     @Function(desc = "打印家庭信息")

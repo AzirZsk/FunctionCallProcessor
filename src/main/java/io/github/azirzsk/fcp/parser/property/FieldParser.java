@@ -1,9 +1,10 @@
 package io.github.azirzsk.fcp.parser.property;
 
+import io.github.azirzsk.fcp.FCPConfiguration;
 import io.github.azirzsk.fcp.annotation.Property;
 import io.github.azirzsk.fcp.entity.PropertyEntity;
 import io.github.azirzsk.fcp.enums.PropertyType;
-import io.github.azirzsk.fcp.parser.Parser;
+import io.github.azirzsk.fcp.parser.AbstractParser;
 import io.github.azirzsk.fcp.utils.ParserUtils;
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,9 +20,11 @@ import java.util.Map;
  * @since 2024/12/26
  */
 @Slf4j
-public class FieldParser implements Parser<Field, PropertyEntity> {
+public class FieldParser extends AbstractParser<Field, PropertyEntity> {
 
-    private static final ObjectPropertyParser OBJECT_PROPERTY_PARSER = new ObjectPropertyParser();
+    public FieldParser(FCPConfiguration fcpConfiguration) {
+        super(fcpConfiguration);
+    }
 
     @Override
     public PropertyEntity parse(Field field) {
@@ -31,7 +34,7 @@ public class FieldParser implements Parser<Field, PropertyEntity> {
         Property property = field.getAnnotation(Property.class);
         if (property == null) {
             if (log.isDebugEnabled()) {
-                log.debug("字段没有@Property注解，不进行解析：{}", field);
+                log.debug("字段没有@Field注解，不进行解析：{}", field);
             }
             return null;
         }
@@ -50,7 +53,7 @@ public class FieldParser implements Parser<Field, PropertyEntity> {
         }
         // object类型的property
         if (PropertyType.OBJECT.getName().equals(propertyEntity.getType())) {
-            Map<String, PropertyEntity> innerProperties = OBJECT_PROPERTY_PARSER.parse(field.getType());
+            Map<String, PropertyEntity> innerProperties = fcpConfiguration.getObjectPropertyParser().parse(field.getType());
             propertyEntity.setProperties(innerProperties);
             // require
             List<String> innerRequiredList = new ArrayList<>();

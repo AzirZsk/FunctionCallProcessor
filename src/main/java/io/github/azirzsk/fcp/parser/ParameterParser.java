@@ -1,8 +1,8 @@
 package io.github.azirzsk.fcp.parser;
 
+import io.github.azirzsk.fcp.FCPConfiguration;
 import io.github.azirzsk.fcp.entity.ParametersEntity;
 import io.github.azirzsk.fcp.entity.PropertyEntity;
-import io.github.azirzsk.fcp.parser.property.PropertyParser;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Parameter;
@@ -13,9 +13,11 @@ import java.util.*;
  * @since 2024/11/17
  */
 @Slf4j
-public class ParameterParser implements Parser<Parameter[], ParametersEntity> {
+public class ParameterParser extends AbstractParser<Parameter[], ParametersEntity> {
 
-    private static final PropertyParser PROPERTY_PARSER = new PropertyParser();
+    public ParameterParser(FCPConfiguration fcpConfiguration) {
+        super(fcpConfiguration);
+    }
 
     public ParametersEntity parse(Parameter[] parameters) {
         if (log.isDebugEnabled()) {
@@ -25,7 +27,7 @@ public class ParameterParser implements Parser<Parameter[], ParametersEntity> {
         List<String> requiredList = new ArrayList<>();
         for (int i = 0; i < parameters.length; i++) {
             Parameter parameter = parameters[i];
-            PropertyEntity property = PROPERTY_PARSER.parse(parameter);
+            PropertyEntity property = fcpConfiguration.getPropertyParser().parse(parameter);
             if (property == null) {
                 continue;
             }
