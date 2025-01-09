@@ -15,7 +15,7 @@ import java.util.Map;
  * @since 2024/12/26
  */
 @Slf4j
-public class ObjectPropertyParser extends AbstractParser<Class<?>, Map<String, PropertyEntity>> {
+public class ObjectPropertyParser extends AbstractPropertyParser<Class<?>, Map<String, PropertyEntity>> {
 
     public ObjectPropertyParser(FCPConfiguration fcpConfiguration) {
         super(fcpConfiguration);

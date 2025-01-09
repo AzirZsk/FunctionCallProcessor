@@ -2,6 +2,7 @@ package io.github.azirzsk.fcp.annotation;
 
 import io.github.azirzsk.fcp.converter.Converter;
 import io.github.azirzsk.fcp.enums.PropertyType;
+import io.github.azirzsk.fcp.parser.property.AbstractPropertyParser;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -27,6 +28,7 @@ public @interface Property {
      *
      * @return 参数类型
      * @see PropertyType 枚举类
+     * @see AbstractPropertyParser#parseEnum(Class, Class) 解析枚举类
      */
     Class<?> type() default AutoType.class;
 
@@ -36,6 +38,7 @@ public @interface Property {
      * 枚举值，需要为枚举类
      *
      * @return Function的属性枚举值
+     * @see AbstractPropertyParser#parseEnum(Class, Class) 解析枚举类
      */
     Class<? extends Converter> enums() default NoneConverter.class;
 

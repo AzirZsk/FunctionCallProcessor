@@ -27,7 +27,9 @@ public enum PropertyType {
 
     BOOLEAN("boolean", "布尔型", new Class<?>[]{Boolean.class, boolean.class}),
 
-    OBJECT("object", "对象类型", new Class<?>[]{Object.class});;
+    OBJECT("object", "对象类型", new Class<?>[]{Object.class}),
+
+    ENUM("enum", "枚举类型", new Class<?>[]{Enum.class});
 
     private final String name;
 
@@ -58,6 +60,10 @@ public enum PropertyType {
         if (Arrays.stream(declaredFields)
                 .anyMatch(field -> field.isAnnotationPresent(Property.class))) {
             return OBJECT;
+        }
+        // 是否枚举类
+        if (type.isEnum()) {
+            return ENUM;
         }
         log.warn("暂不支持该类型：{}，类中也没有标注@Property注解的字段", type);
         throw new IllegalArgumentException("暂不支持该类型：" + type);

@@ -18,7 +18,7 @@ import java.util.Map;
  * @since 2024/11/17
  */
 @Slf4j
-public class PropertyParser extends AbstractParser<Parameter, PropertyEntity> {
+public class PropertyParser extends AbstractPropertyParser<Parameter, PropertyEntity> {
 
     public PropertyParser(FCPConfiguration fcpConfiguration) {
         super(fcpConfiguration);
@@ -68,8 +68,9 @@ public class PropertyParser extends AbstractParser<Parameter, PropertyEntity> {
             propertyEntity.setRequired(innerRequiredList);
         }
         // 解析参数枚举值
-        if (property.enums() != Property.NoneConverter.class) {
-            propertyEntity.setEnumList(ParserUtils.parseEnum(property.enums()));
+        if (property.enums() != Property.NoneConverter.class
+                || PropertyType.ENUM.getName().equals(propertyEntity.getType())) {
+            propertyEntity.setEnumList(parseEnum(property.enums(), parameter.getType()));
         }
         // 参数合法性校验 type:object和枚举值不能同时存在
         if (PropertyType.OBJECT.getName().equals(propertyEntity.getType()) && propertyEntity.getEnumList() != null) {

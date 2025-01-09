@@ -2,6 +2,7 @@ package io.github.azirzsk.fcp.parser.property;
 
 import io.github.azirzsk.fcp.FCPConfiguration;
 import io.github.azirzsk.fcp.annotation.Property;
+import io.github.azirzsk.fcp.converter.Converter;
 import io.github.azirzsk.fcp.entity.PropertyEntity;
 import io.github.azirzsk.fcp.enums.PropertyType;
 import io.github.azirzsk.fcp.parser.AbstractParser;
@@ -10,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +22,7 @@ import java.util.Map;
  * @since 2024/12/26
  */
 @Slf4j
-public class FieldParser extends AbstractParser<Field, PropertyEntity> {
+public class FieldParser extends AbstractPropertyParser<Field, PropertyEntity> {
 
     public FieldParser(FCPConfiguration fcpConfiguration) {
         super(fcpConfiguration);
@@ -65,8 +67,9 @@ public class FieldParser extends AbstractParser<Field, PropertyEntity> {
             propertyEntity.setRequired(innerRequiredList);
         }
         // 解析参数枚举值
-        if (property.enums() != Property.NoneConverter.class) {
-            propertyEntity.setEnumList(ParserUtils.parseEnum(property.enums()));
+        if (property.enums() != Property.NoneConverter.class
+                || PropertyType.ENUM.getName().equals(propertyEntity.getType())) {
+            propertyEntity.setEnumList(parseEnum(property.enums(), field.getType()));
         }
         // 参数合法性校验 type:object和枚举值不能同时存在
         if (PropertyType.OBJECT.getName().equals(propertyEntity.getType()) && propertyEntity.getEnumList() != null) {
@@ -78,4 +81,6 @@ public class FieldParser extends AbstractParser<Field, PropertyEntity> {
         }
         return propertyEntity;
     }
+
+
 }
